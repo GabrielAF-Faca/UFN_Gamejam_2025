@@ -1,0 +1,96 @@
+[gd_scene load_steps=13 format=3 uid="uid://bvqne1dpiywgd"]
+
+[ext_resource type="Shader" uid="uid://bao4m8qa4sd17" path="res://Shaders/ditherer.gdshader" id="1_bluq4"]
+[ext_resource type="Texture2D" uid="uid://c3u3a71s3ciw7" path="res://Assets/Backgrounds/mural_tetas.png" id="2_bluq4"]
+[ext_resource type="PackedScene" uid="uid://c7qxxuo8atra2" path="res://player.tscn" id="3_ycxsd"]
+[ext_resource type="PackedScene" uid="uid://iottq522v632" path="res://camera.tscn" id="4_qy0ap"]
+[ext_resource type="PackedScene" uid="uid://01ag5ruy0hu0" path="res://enemy.tscn" id="5_4w2dt"]
+[ext_resource type="PackedScene" uid="uid://dq1mqc63tkox6" path="res://stage_ending.tscn" id="6_70nv5"]
+[ext_resource type="PackedScene" uid="uid://bqmmu1uh3j7x" path="res://Fases/ponte.tscn" id="7_500m8"]
+[ext_resource type="PackedScene" uid="uid://8bv023hvidoy" path="res://UI.tscn" id="7_y6uw2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8orm5"]
+shader = ExtResource("1_bluq4")
+shader_parameter/texture_mode = 0
+shader_parameter/alpha_mode = 0
+shader_parameter/hit_flash_color = Color(1, 1, 1, 1)
+shader_parameter/hit_flash_on = false
+shader_parameter/quantize_size = 10
+shader_parameter/snap_to_world = false
+shader_parameter/limit_subpixels = false
+shader_parameter/dither_enabled = true
+shader_parameter/dither_pattern = 1
+shader_parameter/levels = 15
+shader_parameter/contrast = 1.2
+shader_parameter/brightness = 0.0
+shader_parameter/average = 0.0
+shader_parameter/palette_mode = 0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_c2182"]
+distance = -55.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ydmiw"]
+normal = Vector2(1, 0)
+distance = -5.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ngu6u"]
+normal = Vector2(0, 1)
+distance = -141.0
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Planetario" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_8orm5")
+position = Vector2(1282, 508)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_bluq4")
+
+[node name="Gustavo" parent="." instance=ExtResource("3_ycxsd")]
+position = Vector2(261, 718)
+scale = Vector2(0.5, 0.5)
+
+[node name="Faca" parent="." instance=ExtResource("3_ycxsd")]
+position = Vector2(321, 879)
+scale = Vector2(0.5, 0.5)
+character = 1
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(257, 808)
+shape = SubResource("WorldBoundaryShape2D_c2182")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(4, 586)
+shape = SubResource("WorldBoundaryShape2D_ydmiw")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-1, 704)
+shape = SubResource("WorldBoundaryShape2D_ngu6u")
+
+[node name="Camera" parent="." node_paths=PackedStringArray("player1", "player2") instance=ExtResource("4_qy0ap")]
+position = Vector2(602, 250)
+camera_x_limit = Vector2(0, 2571)
+player1 = NodePath("../Gustavo")
+player2 = NodePath("../Faca")
+
+[node name="Node2D" parent="." instance=ExtResource("6_70nv5")]
+y_sort_enabled = true
+position = Vector2(2585, 431)
+next_stage = ExtResource("7_500m8")
+
+[node name="Control" parent="." node_paths=PackedStringArray("player1", "player2") instance=ExtResource("7_y6uw2")]
+player1 = NodePath("../Gustavo")
+player2 = NodePath("../Faca")
+
+[node name="Enemy" parent="." instance=ExtResource("5_4w2dt")]
+position = Vector2(2190, 966)
+scale = Vector2(0.5, 0.5)
+
+[node name="Enemy2" parent="." instance=ExtResource("5_4w2dt")]
+position = Vector2(1916, 736)
+scale = Vector2(0.5, 0.5)
+
+[node name="Enemy3" parent="." instance=ExtResource("5_4w2dt")]
+position = Vector2(874, 793)
+scale = Vector2(0.5, 0.5)

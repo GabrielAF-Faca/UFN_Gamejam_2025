@@ -1,0 +1,88 @@
+[gd_scene load_steps=13 format=3 uid="uid://f1mv2vcbyw4l"]
+
+[ext_resource type="Shader" uid="uid://bao4m8qa4sd17" path="res://Shaders/ditherer.gdshader" id="1_f0ma5"]
+[ext_resource type="Texture2D" uid="uid://dp5dojc3pv5ua" path="res://Assets/Backgrounds/arco.png" id="2_f0ma5"]
+[ext_resource type="PackedScene" uid="uid://c7qxxuo8atra2" path="res://player.tscn" id="3_588os"]
+[ext_resource type="PackedScene" uid="uid://iottq522v632" path="res://camera.tscn" id="4_ymn32"]
+[ext_resource type="PackedScene" uid="uid://01ag5ruy0hu0" path="res://enemy.tscn" id="5_lwl1j"]
+[ext_resource type="PackedScene" uid="uid://dq1mqc63tkox6" path="res://stage_ending.tscn" id="6_po6w4"]
+[ext_resource type="PackedScene" uid="uid://8bv023hvidoy" path="res://UI.tscn" id="7_jiu8k"]
+[ext_resource type="PackedScene" uid="uid://csqlss1dml2fh" path="res://Fases/ufn_cutscene.tscn" id="7_ksu4e"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8orm5"]
+shader = ExtResource("1_f0ma5")
+shader_parameter/texture_mode = 0
+shader_parameter/alpha_mode = 0
+shader_parameter/hit_flash_color = Color(1, 1, 1, 1)
+shader_parameter/hit_flash_on = false
+shader_parameter/quantize_size = 10
+shader_parameter/snap_to_world = false
+shader_parameter/limit_subpixels = false
+shader_parameter/dither_enabled = true
+shader_parameter/dither_pattern = 1
+shader_parameter/levels = 15
+shader_parameter/contrast = 1.2
+shader_parameter/brightness = 0.0
+shader_parameter/average = 0.0
+shader_parameter/palette_mode = 0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_c2182"]
+distance = -55.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ydmiw"]
+normal = Vector2(1, 0)
+distance = -5.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ngu6u"]
+normal = Vector2(0, 1)
+distance = -141.0
+
+[node name="Node2D" type="Node2D"]
+y_sort_enabled = true
+
+[node name="Planetario" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_8orm5")
+position = Vector2(1292, 372)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_f0ma5")
+
+[node name="Gustavo" parent="." instance=ExtResource("3_588os")]
+position = Vector2(261, 718)
+scale = Vector2(0.5, 0.5)
+
+[node name="Faca" parent="." instance=ExtResource("3_588os")]
+position = Vector2(321, 879)
+scale = Vector2(0.5, 0.5)
+character = 1
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(257, 808)
+shape = SubResource("WorldBoundaryShape2D_c2182")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(4, 586)
+shape = SubResource("WorldBoundaryShape2D_ydmiw")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-1, 704)
+shape = SubResource("WorldBoundaryShape2D_ngu6u")
+
+[node name="Camera" parent="." node_paths=PackedStringArray("player1", "player2") instance=ExtResource("4_ymn32")]
+position = Vector2(602, 250)
+camera_x_limit = Vector2(0, 2587)
+player1 = NodePath("../Gustavo")
+player2 = NodePath("../Faca")
+
+[node name="Enemy" parent="." instance=ExtResource("5_lwl1j")]
+position = Vector2(2102, 772)
+scale = Vector2(0.5, 0.5)
+
+[node name="Node2D" parent="." instance=ExtResource("6_po6w4")]
+position = Vector2(2605, 443)
+next_stage = ExtResource("7_ksu4e")
+
+[node name="Control" parent="." node_paths=PackedStringArray("player1", "player2") instance=ExtResource("7_jiu8k")]
+player1 = NodePath("../Gustavo")
+player2 = NodePath("../Faca")

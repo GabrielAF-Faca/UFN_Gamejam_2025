@@ -1,0 +1,265 @@
+[gd_scene load_steps=18 format=3 uid="uid://csqlss1dml2fh"]
+
+[ext_resource type="Script" uid="uid://m7lmnbcwphvv" path="res://Fases/ufn.gd" id="1_eer5l"]
+[ext_resource type="Shader" uid="uid://bao4m8qa4sd17" path="res://Shaders/ditherer.gdshader" id="2_v5251"]
+[ext_resource type="Texture2D" uid="uid://c5a2pklxoprcj" path="res://Assets/Backgrounds/ufn.png" id="3_i0rm7"]
+[ext_resource type="PackedScene" uid="uid://c7qxxuo8atra2" path="res://player.tscn" id="4_hhpsk"]
+[ext_resource type="PackedScene" uid="uid://iottq522v632" path="res://camera.tscn" id="5_j2qcf"]
+[ext_resource type="PackedScene" uid="uid://c7tbx8mdpkpjc" path="res://boss.tscn" id="7_g4102"]
+[ext_resource type="AudioStream" uid="uid://dw84dcnqugsni" path="res://Assets/Audio/ricardo1.wav" id="7_v5251"]
+[ext_resource type="AudioStream" uid="uid://b8yisb2k7ilv" path="res://Assets/Audio/agora.wav" id="8_hhpsk"]
+[ext_resource type="AudioStream" uid="uid://4isqjnw8h5o7" path="res://Assets/Audio/sofram.wav" id="9_j2qcf"]
+[ext_resource type="AudioStream" uid="uid://bbexyagj14rg8" path="res://Assets/Audio/plow.wav" id="10_ktrq0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8orm5"]
+shader = ExtResource("2_v5251")
+shader_parameter/texture_mode = 0
+shader_parameter/alpha_mode = 0
+shader_parameter/hit_flash_color = Color(1, 1, 1, 1)
+shader_parameter/hit_flash_on = false
+shader_parameter/quantize_size = 10
+shader_parameter/snap_to_world = false
+shader_parameter/limit_subpixels = false
+shader_parameter/dither_enabled = true
+shader_parameter/dither_pattern = 1
+shader_parameter/levels = 15
+shader_parameter/contrast = 1.2
+shader_parameter/brightness = 0.0
+shader_parameter/average = 0.0
+shader_parameter/palette_mode = 0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_c2182"]
+distance = -55.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ydmiw"]
+normal = Vector2(1, 0)
+distance = -5.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ngu6u"]
+normal = Vector2(0, 1)
+distance = -141.0
+
+[sub_resource type="Animation" id="Animation_n8eam"]
+resource_name = "cutscene"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Boss:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(4.5333333, 4.8333335),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1049, -10), Vector2(1049, 763)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Ricardo1:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RicardoAgora:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(3.7666667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Camera")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(4.8333335),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"super_shake"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sofram:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(6.3333335),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Cabum:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(4.7966666),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(9),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"end_cutscene"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_eer5l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Boss:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1049, -10)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Ricardo1:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RicardoAgora:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sofram:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Cabum:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eer5l"]
+_data = {
+&"RESET": SubResource("Animation_eer5l"),
+&"cutscene": SubResource("Animation_n8eam")
+}
+
+[node name="Node2D" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_eer5l")
+
+[node name="Planetario" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_8orm5")
+position = Vector2(1017, 378)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_i0rm7")
+
+[node name="Gustavo" parent="." instance=ExtResource("4_hhpsk")]
+position = Vector2(261, 718)
+scale = Vector2(0.5, 0.5)
+in_cutscene = true
+
+[node name="Faca" parent="." instance=ExtResource("4_hhpsk")]
+position = Vector2(321, 879)
+scale = Vector2(0.5, 0.5)
+in_cutscene = true
+character = 1
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(257, 808)
+shape = SubResource("WorldBoundaryShape2D_c2182")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(4, 586)
+shape = SubResource("WorldBoundaryShape2D_ydmiw")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-1, 704)
+shape = SubResource("WorldBoundaryShape2D_ngu6u")
+
+[node name="Camera" parent="." node_paths=PackedStringArray("player1", "player2") instance=ExtResource("5_j2qcf")]
+position = Vector2(602, 250)
+camera_x_limit = Vector2(0, 2587)
+player1 = NodePath("../Gustavo")
+player2 = NodePath("../Faca")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_eer5l")
+}
+autoplay = "cutscene"
+
+[node name="Boss" parent="." instance=ExtResource("7_g4102")]
+position = Vector2(1049, -10)
+scale = Vector2(0.5, 0.5)
+in_cutscene = true
+
+[node name="Ricardo1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_v5251")
+
+[node name="RicardoAgora" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_hhpsk")
+
+[node name="Sofram" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_j2qcf")
+
+[node name="Cabum" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_ktrq0")

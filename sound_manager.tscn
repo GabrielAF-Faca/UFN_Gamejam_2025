@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://ko5olshjkvqr"]
+
+[ext_resource type="Script" uid="uid://c8mmt4tl1st83" path="res://sound_manager.gd" id="1_g5net"]
+[ext_resource type="AudioStream" uid="uid://c5lmmoyrvhve2" path="res://Assets/Audio/hit.wav" id="2_mdjn0"]
+[ext_resource type="AudioStream" uid="uid://c0p53h5osmiq" path="res://Assets/Audio/soundtrack.wav" id="3_22ksp"]
+
+[node name="SoundManager" type="Node2D"]
+script = ExtResource("1_g5net")
+
+[node name="Hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_mdjn0")
+
+[node name="Soundtrack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_22ksp")

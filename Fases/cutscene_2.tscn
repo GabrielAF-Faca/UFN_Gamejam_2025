@@ -1,0 +1,131 @@
+[gd_scene load_steps=9 format=3 uid="uid://cetrqt7hg0guj"]
+
+[ext_resource type="Script" uid="uid://ba372efxq7mpg" path="res://Fases/cutscene_2.gd" id="1_mpd3g"]
+[ext_resource type="AudioStream" uid="uid://cnfde3dj866vr" path="res://CutsceneFinal/obra de arte final.wav" id="2_1t45y"]
+[ext_resource type="Shader" uid="uid://bao4m8qa4sd17" path="res://Shaders/ditherer.gdshader" id="2_b2d6s"]
+[ext_resource type="Texture2D" uid="uid://btddxqelit3vv" path="res://CutsceneFinal/parados.jpg" id="3_1t45y"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rdkov"]
+shader = ExtResource("2_b2d6s")
+shader_parameter/texture_mode = 0
+shader_parameter/alpha_mode = 0
+shader_parameter/hit_flash_color = Color(1, 1, 1, 1)
+shader_parameter/hit_flash_on = false
+shader_parameter/quantize_size = 10
+shader_parameter/snap_to_world = false
+shader_parameter/limit_subpixels = true
+shader_parameter/dither_enabled = true
+shader_parameter/dither_pattern = 1
+shader_parameter/levels = 15
+shader_parameter/contrast = 1.2
+shader_parameter/brightness = 0.0
+shader_parameter/average = 0.0
+shader_parameter/palette_mode = 0
+
+[sub_resource type="Animation" id="Animation_b2d6s"]
+resource_name = "cutscene"
+length = 50.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AudioStreamPlayer:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:cena_atual")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.2034216, 3.8151023, 6.8449936, 7.894787, 9.866667, 11.8, 15.466666, 18.933332, 22, 26.766666, 28.833334, 32.233334, 36.733334, 39.651306),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(41.55719, 50),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_rdkov"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AudioStreamPlayer:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:cena_atual")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1t45y"]
+_data = {
+&"RESET": SubResource("Animation_rdkov"),
+&"cutscene": SubResource("Animation_b2d6s")
+}
+
+[node name="cutscene2" type="Node2D"]
+script = ExtResource("1_mpd3g")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_1t45y")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_rdkov")
+position = Vector2(644.1421, 365.6)
+scale = Vector2(0.32007104, 0.32007104)
+texture = ExtResource("3_1t45y")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_1t45y")
+}
+autoplay = "cutscene"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1333.0
+offset_bottom = 776.0
+color = Color(0, 0, 0, 0)
