@@ -31,10 +31,19 @@ func _ready():
 	var meio_dos_players = (player1.global_position + player2.global_position)/2
 	global_position = meio_dos_players + player_center_offset
 
+@onready var label: Label = $Label
+
+
+var game_ended:bool = false:
+	set(new_value):
+		game_ended = new_value
+		label.visible = game_ended
+
 
 func _process(delta: float) -> void:
 	
 	if not player1 and not player2:
+		game_ended = true
 		return
 	
 	if not player1:
@@ -46,6 +55,15 @@ func _process(delta: float) -> void:
 	var meio_dos_players = (player1.global_position + player2.global_position)/2
 	
 	global_position = global_position.move_toward(meio_dos_players + player_center_offset, camera_speed)
+
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if event.pressed and not event.echo:
+			if event.keycode == KEY_R:
+				if game_ended:
+					get_tree().reload_current_scene()
+
 
 
 func _physics_process(delta: float) -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b7ygjclj0nua"]
+[gd_scene load_steps=13 format=3 uid="uid://b7ygjclj0nua"]
 
 [ext_resource type="Shader" uid="uid://bao4m8qa4sd17" path="res://Shaders/ditherer.gdshader" id="1_525nc"]
 [ext_resource type="Script" uid="uid://b6mumh3sp4qeu" path="res://cuscene.gd" id="1_pykka"]
@@ -153,6 +153,11 @@ font = ExtResource("6_ua2cu")
 font_size = 80
 font_color = Color(1, 0.8117647, 0, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_x5w7c"]
+font_size = 32
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_pykka")
 
@@ -187,3 +192,18 @@ depois"
 label_settings = SubResource("LabelSettings_ji1j8")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+visible = false
+offset_left = 463.0
+offset_top = 22.0
+offset_right = 807.0
+offset_bottom = 67.0
+text = "APERTE Z PARA PULAR"
+label_settings = SubResource("LabelSettings_x5w7c")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.5
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

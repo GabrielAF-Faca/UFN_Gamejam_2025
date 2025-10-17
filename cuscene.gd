@@ -45,6 +45,28 @@ const MAIN = preload("uid://bdv7fsllbdoyn")
 		cena_atual = new_cena
 		$Sprite2D.texture = CENAS[cena_atual]
 
+var showing_skip = false:
+	set(new_visibility):
+		showing_skip = new_visibility
+		label_2.visible = showing_skip
+
+@onready var label_2: Label = $Label2
+@onready var timer: Timer = $Timer
+
 func change_scene():
 
 	Transitioner.transition_to_scene(MAIN)
+
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if event.pressed and not event.echo:
+			if not showing_skip:
+				showing_skip = true
+				timer.start()
+			else:
+				if event.keycode == KEY_Z:
+					change_scene()
+
+func _on_timer_timeout() -> void:
+	showing_skip = false

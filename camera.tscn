@@ -1,6 +1,24 @@
-[gd_scene load_steps=2 format=3 uid="uid://iottq522v632"]
+[gd_scene load_steps=3 format=3 uid="uid://iottq522v632"]
 
 [ext_resource type="Script" uid="uid://dhchx3rked1qe" path="res://camera.gd" id="1_u5kg4"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_u5kg4"]
+font_size = 32
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
 [node name="Camera" type="Camera2D" groups=["camera"]]
+z_index = 2
 script = ExtResource("1_u5kg4")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -198.0
+offset_top = -47.0
+offset_right = 200.0
+offset_bottom = 46.0
+text = "VOCE MORREU
+APERTE R PARA REINICIAR"
+label_settings = SubResource("LabelSettings_u5kg4")
+horizontal_alignment = 1
+vertical_alignment = 1
